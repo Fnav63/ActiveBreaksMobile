@@ -43,3 +43,7 @@ flowchart TD;
     C --> D[Usuario selecciona una pausa]
     D --> E[Detalle de la Pausa Activa]
 ```
+
+## Investigación
+
+[Ver investigación técnica](RESEARCH.md)

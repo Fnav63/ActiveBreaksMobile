@@ -59,3 +59,6 @@ flowchart TD;
     - Descripción.
     - Duración o repeticiones.
     - Imagen de referencia.
+  
+## Video de presentación
+https://youtu.be/MhweNhE_bj4

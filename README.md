@@ -47,3 +47,15 @@ flowchart TD;
 ## Investigación
 
 [Ver investigación técnica](RESEARCH.md)
+
+## Instrucciones de uso
+1. Al iniciar la aplicación, se muestra una pantalla de splash de bienvenida.
+2. Una vez en la pantalla principal, el usuario puede:
+    - Acceder a la lista de pausas activas.
+    - Acceder al perfil de usuario.
+    - Acceder a la pantalla de ayuda/about.
+3. En la lista de pausas activas, el usuario puede seleccionar una de ellas mostrando el detalle de la misma con:
+    - Nombre del ejercicio.
+    - Descripción.
+    - Duración o repeticiones.
+    - Imagen de referencia.

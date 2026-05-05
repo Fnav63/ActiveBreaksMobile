@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'breaks_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -48,14 +47,16 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const BreaksListScreen(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, '/breaks');
                   },
                   child: const Text('Ver Pausas Activas'),
+                ),
+                const SizedBox(height: 12),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/about');
+                  },
+                  child: const Text('Ayuda y Acerca de'),
                 ),
               ],
             ),

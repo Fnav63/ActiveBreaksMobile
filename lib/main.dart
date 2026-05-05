@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
+import 'screens/breaks_list_screen.dart';
+import 'screens/about_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
   runApp(const ActiveBreaksApp());
@@ -13,6 +16,14 @@ class ActiveBreaksApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ActiveBreaks',
+      initialRoute: '/splash',
+      routes: {
+        '/splash': (context) => const SplashScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/breaks': (context) => const BreaksListScreen(),
+        '/about': (context) => const AboutScreen(),
+      },
+
       theme: ThemeData(
         colorScheme: const ColorScheme.dark(
           primary: Color.fromARGB(255, 44, 83, 46),
@@ -25,20 +36,17 @@ class ActiveBreaksApp extends StatelessWidget {
 
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(255, 44, 83, 46),
+            backgroundColor: Colors.green,
             foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24,
-              vertical: 14,
-            ),
-            textStyle: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+          ),
+        ),
+
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.white,
           ),
         ),
       ),
-      home: const HomeScreen(),
     );
   }
 }

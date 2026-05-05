@@ -3,6 +3,7 @@ import 'screens/home_screen.dart';
 import 'screens/breaks_list_screen.dart';
 import 'screens/about_screen.dart';
 import 'screens/splash_screen.dart';
+import 'screens/profile_screen.dart';
 
 void main() {
   runApp(const ActiveBreaksApp());
@@ -16,12 +17,15 @@ class ActiveBreaksApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ActiveBreaks',
+      
+      // Mapa de rutas
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => const SplashScreen(),
         '/home': (context) => const HomeScreen(),
         '/breaks': (context) => const BreaksListScreen(),
         '/about': (context) => const AboutScreen(),
+        '/profile': (context) => const ProfileScreen(),
       },
 
       theme: ThemeData(

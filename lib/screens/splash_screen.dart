@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             const SizedBox(height: 10),
             Text(
-              'Pausas activas para tu bienestar',
+              'Pausas activas para su bienestar',
               style: TextStyle(
                 fontSize: 16,
                 color: colors.onSurface,

@@ -54,6 +54,12 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 TextButton(
                   onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child: const Text('Perfil'),
+                ),
+                TextButton(
+                  onPressed: () {
                     Navigator.pushNamed(context, '/about');
                   },
                   child: const Text('Ayuda y Acerca de'),

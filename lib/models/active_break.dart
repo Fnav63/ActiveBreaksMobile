@@ -14,4 +14,8 @@ class ActiveBreak {
     required this.imagePath,
     required this.icon,
   });
+
+  int get durationSeconds {
+    return int.tryParse(duration) ?? 0;
+  }
 }

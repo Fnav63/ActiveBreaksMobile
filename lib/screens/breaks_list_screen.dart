@@ -11,7 +11,7 @@ class BreaksListScreen extends StatelessWidget {
       title: 'Estiramiento de cuello',
       description:
           'Ayuda a reducir la tensión acumulada en el cuello por largas horas frente al computador.',
-      duration: '30 segundos',
+      duration: '30',
       imagePath: 'assets/images/neck_stretch.jpg',
       icon: Icons.accessibility_new,
     ),
@@ -19,7 +19,7 @@ class BreaksListScreen extends StatelessWidget {
       title: 'Pausa para hombros',
       description:
           'Ejercicio suave para relajar los hombros y mejorar la postura.',
-      duration: '10 repeticiones',
+      duration: '20',
       imagePath: 'assets/images/shoulder_pause.jpg',
       icon: Icons.accessibility_new,
     ),
@@ -27,7 +27,7 @@ class BreaksListScreen extends StatelessWidget {
       title: 'Relajación de espalda',
       description:
           'Movimiento controlado para aliviar la tensión en la zona lumbar.',
-      duration: '45 segundos',
+      duration: '45',
       imagePath: 'assets/images/back_relax2.png',
       icon: Icons.accessibility_new,
     ),

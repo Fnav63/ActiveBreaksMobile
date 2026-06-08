@@ -1,0 +1,20 @@
+@startuml DiagramaSec
+title Diagrama de Secuencia – Temporizador de Pausa Activa
+
+skinparam Style strictuml
+
+actor Usuario
+participant "BreakDetailScreen" as UI
+participant "BreakTimerController" as Controller
+participant "Timer" as Timer
+
+Usuario -> UI : Presiona "Iniciar"
+UI -> Controller : start()
+Controller -> Timer : Timer.periodic(1s)
+
+Timer -> Controller : tiempo finalizado
+Controller -> UI : onFinished()
+
+UI -> Usuario : Muestra diálogo de finalización
+
+@enduml

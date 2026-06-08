@@ -1,0 +1,22 @@
+@startuml
+title Arquitectura de la aplicación ActiveBreaksMobile (PoC Temporizador)
+
+skinparam componentStyle rectangle
+
+package "Presentation Layer" {
+  component "BreakDetailScreen\n(UI)" as UI
+}
+
+package "Application Layer" {
+  component "BreakTimerController" as Controller
+}
+
+package "Domain Layer" {
+  component "ActiveBreak\n(Model)" as Model
+}
+
+UI --> Controller : start / pause / reset
+Controller --> UI : onTick / onFinished
+UI --> Model : lectura de datos
+
+@enduml

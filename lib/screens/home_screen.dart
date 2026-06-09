@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../viewmodels/profile_viewmodel.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProfileViewModel>().loadProfile();
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<ProfileViewModel>().refreshHistory();
+  }
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final profile = context.watch<ProfileViewModel>();
 
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +49,9 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Bienvenido a Active Breaks',
+                  profile.hasProfile
+                      ? 'Bienvenido, ${profile.userName}'
+                      : 'Bienvenido a Active Breaks',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -44,6 +68,15 @@ class HomeScreen extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
+                const SizedBox(height: 8),
+                Text(
+                  'Pausas completadas: ${profile.totalBreaksCount}',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: colors.secondary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {
@@ -57,6 +90,18 @@ class HomeScreen extends StatelessWidget {
                     Navigator.pushNamed(context, '/profile');
                   },
                   child: const Text('Perfil'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/history');
+                  },
+                  child: const Text('Historial'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/settings');
+                  },
+                  child: const Text('Configuracion'),
                 ),
                 TextButton(
                   onPressed: () {

@@ -77,6 +77,7 @@ class ProfileViewModel extends ChangeNotifier {
       final granted = await _notificationService.requestPermissions();
       if (!granted) return;
       await _notificationService.schedulePeriodicReminder(_notifIntervalMinutes);
+      await _notificationService.showReminderTestNotification();
     } else {
       await _notificationService.cancelReminders();
     }

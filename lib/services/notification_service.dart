@@ -63,6 +63,29 @@ class NotificationService {
     return false;
   }
 
+  Future<void> showReminderTestNotification() async {
+  const androidDetails = AndroidNotificationDetails(
+    'break_reminder',
+    'Recordatorio de Pausa',
+    channelDescription: 'Recordatorio para realizar pausas activas',
+    importance: Importance.defaultImportance,
+    priority: Priority.defaultPriority,
+    icon: '@mipmap/ic_launcher',
+  );
+
+  const details = NotificationDetails(
+    android: androidDetails,
+    iOS: DarwinNotificationDetails(),
+  );
+
+  await _plugin.show(
+    3,
+    'Recordatorio activado',
+    'Recibiras recordatorios de pausas activas.',
+    details,
+  );
+}
+
   Future<void> showBreakCompletedNotification(String breakTitle) async {
     const androidDetails = AndroidNotificationDetails(
       'break_completed',

@@ -1,15 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../viewmodels/profile_viewmodel.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final _nameController = TextEditingController();
+  bool _editing = false;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final vm = context.watch<ProfileViewModel>();
+
+    if (vm.isLoading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Perfil de Usuario'),
+        actions: [
+          IconButton(
+            icon: Icon(_editing ? Icons.check : Icons.edit),
+            onPressed: () async {
+              if (_editing) {
+                await vm.saveUserName(_nameController.text);
+              } else {
+                _nameController.text = vm.userName;
+              }
+              setState(() => _editing = !_editing);
+            },
+          ),
+        ],
       ),
       body: Center(
         child: ConstrainedBox(
@@ -23,51 +59,80 @@ class ProfileScreen extends StatelessWidget {
                 CircleAvatar(
                   radius: 50,
                   backgroundColor: colors.primary,
-                  child: const Icon(
-                    Icons.person,
-                    size: 60,
-                    color: Colors.white,
+                  child: Text(
+                    vm.hasProfile ? vm.userName[0].toUpperCase() : '?',
+                    style: const TextStyle(
+                      fontSize: 40,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
 
                 const SizedBox(height: 20),
-
-                Text(
-                  'Marcos Faúndez',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: colors.onSurface,
+                if (_editing)
+                  TextField(
+                    controller: _nameController,
+                    autofocus: true,
+                    style: TextStyle(
+                      color: colors.onSurface,
+                      fontSize: 22,
+                    ),
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      hintText: 'Tu nombre completo',
+                      hintStyle: TextStyle(
+                          color: colors.onSurface.withAlpha(102)),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colors.primary),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: colors.secondary, width: 2),
+                      ),
+                    ),
+                  )
+                else
+                  Text(
+                    vm.hasProfile ? vm.userName : 'Sin nombre',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: colors.onSurface,
+                    ),
                   ),
-                ),
 
                 const SizedBox(height: 8),
-
-                Text(
-                  'Estudiante / Trabajador',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: colors.onSurface,
+                DropdownButton<String>(
+                  value: vm.userRole.isEmpty ? null : vm.userRole,
+                  hint: Text(
+                    'Selecciona tu rol',
+                    style: TextStyle(color: colors.onSurface.withAlpha(153)),
                   ),
+                  dropdownColor: colors.surface,
+                  style: TextStyle(color: colors.onSurface),
+                  items: ProfileViewModel.roleOptions
+                      .map((r) => DropdownMenuItem(
+                            value: r,
+                            child: Text(r),
+                          ))
+                      .toList(),
+                  onChanged: (val) {
+                    if (val != null) vm.saveUserRole(val);
+                  },
                 ),
 
                 const SizedBox(height: 30),
 
                 _profileInfo(
-                  label: 'Objetivo',
-                  value: 'Reducir el sedentarismo',
+                  label: 'Pausas completadas',
+                  value: '${vm.totalBreaksCount}',
                   colors: colors,
                 ),
 
                 _profileInfo(
                   label: 'Frecuencia recomendada',
                   value: '1 pausa activa cada 60 minutos',
-                  colors: colors,
-                ),
-
-                _profileInfo(
-                  label: 'Estado',
-                  value: 'Activo',
                   colors: colors,
                 ),
               ],
@@ -98,9 +163,7 @@ class ProfileScreen extends StatelessWidget {
           Expanded(
             child: Text(
               value,
-              style: TextStyle(
-                color: colors.onSurface,
-              ),
+              style: TextStyle(color: colors.onSurface),
             ),
           ),
         ],

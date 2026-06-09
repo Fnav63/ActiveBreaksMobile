@@ -13,6 +13,8 @@ import 'screens/breaks_list_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/about_screen.dart';
 import 'screens/break_detail_screen.dart';
+import 'screens/settings_screen.dart';
+import 'screens/history_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,6 +71,8 @@ class ActiveBreaksApp extends StatelessWidget {
           '/breaks': (_) => const BreaksListScreen(),
           '/profile': (_) => const ProfileScreen(),
           '/about': (_) => const AboutScreen(),
+          '/settings': (_) => const SettingsScreen(),
+          '/history': (_) => const HistoryScreen(),
         },
         onGenerateRoute: (settings) {
         if (settings.name == '/break-detail') {

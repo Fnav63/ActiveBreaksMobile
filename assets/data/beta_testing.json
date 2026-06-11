@@ -1,0 +1,67 @@
+{
+  "categorias": [
+    {
+      "nombre": "Usabilidad",
+      "preguntas": [
+        {
+          "titulo": "Pregunta 1: ¿Que tan facil fue navegar a traves de la aplicacion?",
+          "valor": 0,
+          "min": "1 estrellas: Fue muy dificil encontrar las funcionalidades, la navegacion fue confusa.",
+          "max": "5 estrellas: Fue extremadamente facil, la navegacion es intuitiva y sin complicaciones."
+        },
+        {
+          "titulo": "Pregunta 2: ¿Pudiste completar las pausas activas sin problemas?",
+          "valor": 0,
+          "min": "1 estrellas: No pude completar las pausas, fue frustrante.",
+          "max": "5 estrellas: Pude completar todas las pausas de forma rapida y eficiente."
+        },
+        {
+          "titulo": "Pregunta 3: ¿Como calificas la interfaz grafica en terminos de diseño y claridad?",
+          "valor": 0,
+          "min": "1 estrellas: La interfaz es poco clara y dificil de entender.",
+          "max": "5 estrellas: La interfaz es clara, atractiva y facilita el uso."
+        }
+      ]
+    },
+    {
+      "nombre": "Contenido",
+      "preguntas": [
+        {
+          "titulo": "Pregunta 1: ¿El contenido de las pausas activas fue util para ti?",
+          "valor": 0,
+          "min": "1 estrellas: El contenido no fue relevante ni util.",
+          "max": "5 estrellas: El contenido fue muy util y relevante para mis necesidades."
+        },
+        {
+          "titulo": "Pregunta 2: ¿Las instrucciones de cada pausa activa fueron claras?",
+          "valor": 0,
+          "min": "1 estrellas: Las instrucciones fueron confusas y dificiles de seguir.",
+          "max": "5 estrellas: Las instrucciones fueron muy claras y faciles de seguir."
+        },
+        {
+          "titulo": "Pregunta 3: ¿El contenido de la aplicacion esta presentado de manera comprensible?",
+          "valor": 0,
+          "min": "1 estrellas: El contenido esta mal estructurado o es confuso.",
+          "max": "5 estrellas: El contenido esta muy bien presentado y es facil de comprender."
+        }
+      ]
+    },
+    {
+      "nombre": "Recomendacion",
+      "preguntas": [
+        {
+          "titulo": "Pregunta 1: ¿Que tan probable es que recomiendes esta aplicacion a un amigo?",
+          "valor": 0,
+          "min": "1 estrellas: No la recomendaria en absoluto.",
+          "max": "5 estrellas: Definitivamente la recomendaria."
+        },
+        {
+          "titulo": "Pregunta 2: ¿Crees que esta aplicacion podria ser util para personas cercanas a ti?",
+          "valor": 0,
+          "min": "1 estrellas: No creo que sea util para otras personas.",
+          "max": "5 estrellas: Estoy seguro de que seria muy util para personas cercanas."
+        }
+      ]
+    }
+  ]
+}

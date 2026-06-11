@@ -15,6 +15,8 @@ import 'screens/about_screen.dart';
 import 'screens/break_detail_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/history_screen.dart';
+import 'viewmodels/beta_testing_viewmodel.dart';
+import 'screens/beta_testing_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,6 +61,9 @@ class ActiveBreaksApp extends StatelessWidget {
             storageService: storageService,
           ),
         ),
+        ChangeNotifierProvider(
+          create: (_) => BetaTestingViewModel(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -73,6 +78,7 @@ class ActiveBreaksApp extends StatelessWidget {
           '/about': (_) => const AboutScreen(),
           '/settings': (_) => const SettingsScreen(),
           '/history': (_) => const HistoryScreen(),
+          '/beta-testing': (_) => const BetaTestingScreen(),
         },
         onGenerateRoute: (settings) {
         if (settings.name == '/break-detail') {

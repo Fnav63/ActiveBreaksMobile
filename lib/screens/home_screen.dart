@@ -105,6 +105,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 TextButton(
                   onPressed: () {
+                    Navigator.pushNamed(context, '/beta-testing');
+                  },
+                  child: const Text('Evaluar la App'),
+                ),
+                TextButton(
+                  onPressed: () {
                     Navigator.pushNamed(context, '/about');
                   },
                   child: const Text('Ayuda y Acerca de'),

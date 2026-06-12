@@ -14,7 +14,8 @@ class BreaksListScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Pausas Activas')),
-      body: Column(
+      body: SafeArea(
+        child: Column(
         children: [
           SizedBox(
             height: 48,
@@ -65,6 +66,7 @@ class BreaksListScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }

@@ -57,7 +57,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ),
         ],
       ),
-      body: vm.completedBreaks.isEmpty
+      body: SafeArea(
+        child: vm.completedBreaks.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -109,6 +110,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 );
               },
             ),
+      ),
     );
   }
 }

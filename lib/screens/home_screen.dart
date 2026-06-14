@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/profile_viewmodel.dart';
+import '../viewmodels/breaks_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -80,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {
+                    context.read<BreaksViewModel>().loadPreferencesAndFilter();
                     Navigator.pushNamed(context, '/breaks');
                   },
                   child: const Text('Ver Pausas Activas'),

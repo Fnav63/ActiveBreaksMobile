@@ -65,6 +65,16 @@ class StorageService {
     await prefs.setInt(_keyTotalBreaksCount, count + 1);
   }
 
+  Future<List<String>> getSelectedCategories() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList('selected_categories') ?? [];
+  }
+
+  Future<void> saveSelectedCategories(List<String> categories) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('selected_categories', categories);
+  }
+
   Future<int> getTotalBreaksCount() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getInt(_keyTotalBreaksCount) ?? 0;

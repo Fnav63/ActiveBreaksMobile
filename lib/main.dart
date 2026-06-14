@@ -18,6 +18,7 @@ import 'screens/history_screen.dart';
 import 'viewmodels/beta_testing_viewmodel.dart';
 import 'screens/beta_testing_screen.dart';
 import 'services/work_manager_service.dart';
+import 'viewmodels/preferences_viewmodel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +55,9 @@ class ActiveBreaksApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => BreaksViewModel(),
+          create: (_) => BreaksViewModel(
+            storageService: storageService,
+          ),
         ),
         ChangeNotifierProvider(
           create: (_) => ProfileViewModel(
@@ -71,6 +74,11 @@ class ActiveBreaksApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => BetaTestingViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => PreferencesViewModel(
+            storageService: storageService,
+          ),
         ),
       ],
       child: MaterialApp(

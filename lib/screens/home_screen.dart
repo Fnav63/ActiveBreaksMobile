@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/profile_viewmodel.dart';
-import '../viewmodels/breaks_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,14 +10,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ProfileViewModel>().loadProfile();
-    });
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -33,95 +24,141 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Active Breaks'),
+        centerTitle: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 400),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.self_improvement,
-                  size: 100,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _HeroCard(profile: profile, colors: colors),
+              const SizedBox(height: 28),
+              Text(
+                '¿Por qué importa moverse?',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                   color: colors.onSurface,
                 ),
-                const SizedBox(height: 20),
+              ),
+              const SizedBox(height: 12),
+              const _BenefitsList(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _HeroCard extends StatelessWidget {
+  final ProfileViewModel profile;
+  final ColorScheme colors;
+
+  const _HeroCard({required this.profile, required this.colors});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            colors.primary,
+            colors.primary.withAlpha(180),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text(
                   profile.hasProfile
-                      ? 'Bienvenido, ${profile.userName}'
-                      : 'Bienvenido a Active Breaks',
-                  style: TextStyle(
-                    fontSize: 24,
+                      ? 'Hola, ${profile.userName} 👋'
+                      : 'Bienvenido 👋',
+                  style: const TextStyle(
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: colors.onSurface,
+                    color: Colors.white,
                   ),
-                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 6),
+                const Text(
+                  'Cuida tu cuerpo durante la jornada.\nUna pausa activa al día marca la diferencia.',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.white70,
+                    height: 1.4,
+                  ),
                 ),
                 const SizedBox(height: 12),
-                Text(
-                  'Garantizando su bienestar con pausas activas.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: colors.onSurface,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
                 Text(
                   'Pausas completadas: ${profile.totalBreaksCount}',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: colors.secondary,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
-                ),
-                const SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<BreaksViewModel>().loadPreferencesAndFilter();
-                    Navigator.pushNamed(context, '/breaks');
-                  },
-                  child: const Text('Ver Pausas Activas'),
-                ),
-                const SizedBox(height: 12),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/profile');
-                  },
-                  child: const Text('Perfil'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/history');
-                  },
-                  child: const Text('Historial'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/settings');
-                  },
-                  child: const Text('Configuracion'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/beta-testing');
-                  },
-                  child: const Text('Evaluar la App'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/about');
-                  },
-                  child: const Text('Ayuda y Acerca de'),
                 ),
               ],
             ),
           ),
-        ),
+          const SizedBox(width: 12),
+          const Icon(
+            Icons.self_improvement,
+            size: 64,
+            color: Colors.white54,
+          ),
+        ],
       ),
+    );
+  }
+}
+
+class _BenefitsList extends StatelessWidget {
+  const _BenefitsList();
+
+  static const _benefits = [
+    (Icons.monitor_heart_outlined, 'Reduce tensión muscular y fatiga visual'),
+    (Icons.trending_up_outlined, 'Mejora concentración y productividad'),
+    (Icons.accessibility_new_outlined, 'Previene lesiones posturales crónicas'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: _benefits
+          .map(
+            (b) => Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(
+                children: [
+                  Icon(b.$1, color: Colors.green, size: 20),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      b.$2,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }

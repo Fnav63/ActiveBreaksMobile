@@ -8,7 +8,7 @@ import 'viewmodels/profile_viewmodel.dart';
 import 'viewmodels/timer_viewmodel.dart';
 
 import 'screens/splash_screen.dart';
-import 'screens/home_screen.dart';
+import 'screens/main_shell.dart';
 import 'screens/breaks_list_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/about_screen.dart';
@@ -88,7 +88,7 @@ class ActiveBreaksApp extends StatelessWidget {
         initialRoute: '/splash',
         routes: {
           '/splash': (_) => const SplashScreen(),
-          '/home': (_) => const HomeScreen(),
+          '/home': (_) => const MainShell(),
           '/breaks': (_) => const BreaksListScreen(),
           '/profile': (_) => const ProfileScreen(),
           '/about': (_) => const AboutScreen(),
@@ -97,13 +97,13 @@ class ActiveBreaksApp extends StatelessWidget {
           '/beta-testing': (_) => const BetaTestingScreen(),
         },
         onGenerateRoute: (settings) {
-        if (settings.name == '/break-detail') {
-          return MaterialPageRoute(
-            builder: (_) => const BreakDetailScreen(),
-          );
-        }
-        return null;
-      },
+          if (settings.name == '/break-detail') {
+            return MaterialPageRoute(
+              builder: (_) => const BreakDetailScreen(),
+            );
+          }
+          return null;
+        },
       ),
     );
   }

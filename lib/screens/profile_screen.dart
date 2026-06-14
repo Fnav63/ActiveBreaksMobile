@@ -134,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     _profileInfo(
                       label: 'Frecuencia recomendada',
-                      value: '1 pausa activa cada 60 minutos',
+                      value: '1 pausa activa cada 30 minutos',
                       colors: colors,
                     ),
                   ],

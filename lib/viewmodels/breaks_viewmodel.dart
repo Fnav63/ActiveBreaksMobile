@@ -1,7 +1,12 @@
 import 'package:flutter/foundation.dart';
 import '../models/active_break.dart';
+import '../services/storage_service.dart';
 
 class BreaksViewModel extends ChangeNotifier {
+  final StorageService _storageService;
+
+  BreaksViewModel({required StorageService storageService})
+      : _storageService = storageService;
 
   final List<ActiveBreak> _breaks = const [
     ActiveBreak(
@@ -101,6 +106,18 @@ class BreaksViewModel extends ChangeNotifier {
 
   void filterByCategory(String category) {
     _selectedCategory = category;
+    notifyListeners();
+  }
+
+  Future<void> loadPreferencesAndFilter() async {
+    final selectedCategories = await _storageService.getSelectedCategories();
+
+    if (selectedCategories.isNotEmpty) {
+      _selectedCategory = selectedCategories.first;
+    } else {
+      _selectedCategory = 'Todas';
+    }
+
     notifyListeners();
   }
 

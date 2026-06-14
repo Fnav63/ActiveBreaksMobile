@@ -17,6 +17,7 @@ import 'screens/settings_screen.dart';
 import 'screens/history_screen.dart';
 import 'viewmodels/beta_testing_viewmodel.dart';
 import 'screens/beta_testing_screen.dart';
+import 'services/work_manager_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,22 +25,28 @@ void main() async {
   final notificationService = NotificationService();
   await notificationService.initialize();
 
+  final workManagerService = WorkManagerService();
+  await workManagerService.initialize();
+
   final storageService = StorageService();
 
   runApp(ActiveBreaksApp(
     notificationService: notificationService,
     storageService: storageService,
+    workManagerService: workManagerService,
   ));
 }
 
 class ActiveBreaksApp extends StatelessWidget {
   final NotificationService notificationService;
   final StorageService storageService;
+  final WorkManagerService workManagerService;
 
   const ActiveBreaksApp({
     super.key,
     required this.notificationService,
     required this.storageService,
+    required this.workManagerService,
   });
 
   @override
@@ -53,6 +60,7 @@ class ActiveBreaksApp extends StatelessWidget {
           create: (_) => ProfileViewModel(
             storageService: storageService,
             notificationService: notificationService,
+            workManagerService: workManagerService,
           ),
         ),
         ChangeNotifierProvider(

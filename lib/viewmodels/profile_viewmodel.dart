@@ -1,16 +1,20 @@
 import 'package:flutter/foundation.dart';
 import '../services/storage_service.dart';
 import '../services/notification_service.dart';
+import '../services/work_manager_service.dart';
 
 class ProfileViewModel extends ChangeNotifier {
   final StorageService _storageService;
   final NotificationService _notificationService;
+  final WorkManagerService _workManagerService;
 
   ProfileViewModel({
     required StorageService storageService,
     required NotificationService notificationService,
+    required WorkManagerService workManagerService,
   })  : _storageService = storageService,
-        _notificationService = notificationService;
+        _notificationService = notificationService,
+        _workManagerService = workManagerService;
 
   String _userName = '';
   String _userRole = '';
@@ -37,7 +41,7 @@ class ProfileViewModel extends ChangeNotifier {
     'Otro',
   ];
 
-  static const List<int> intervalOptions = [30, 45, 60, 90, 120];
+  static const List<int> intervalOptions = [15, 30, 45, 60, 90, 120];
 
   Future<void> loadProfile() async {
     _isLoading = true;
@@ -47,6 +51,11 @@ class ProfileViewModel extends ChangeNotifier {
     _userRole = await _storageService.getUserRole();
     _notifEnabled = await _storageService.getNotifEnabled();
     _notifIntervalMinutes = await _storageService.getNotifIntervalMinutes();
+    
+    if (!intervalOptions.contains(_notifIntervalMinutes)) {
+      _notifIntervalMinutes = 60;
+    }
+    
     _totalBreaksCount = await _storageService.getTotalBreaksCount();
     _completedBreaks = await _storageService.getCompletedBreaks();
 
@@ -76,10 +85,9 @@ class ProfileViewModel extends ChangeNotifier {
     if (enabled) {
       final granted = await _notificationService.requestPermissions();
       if (!granted) return;
-      await _notificationService.schedulePeriodicReminder(_notifIntervalMinutes);
-      await _notificationService.showReminderTestNotification();
+      await _workManagerService.schedulePeriodicReminder(_notifIntervalMinutes);
     } else {
-      await _notificationService.cancelReminders();
+      await _workManagerService.cancelReminder();
     }
 
     _notifEnabled = enabled;
@@ -92,7 +100,7 @@ class ProfileViewModel extends ChangeNotifier {
     await _storageService.saveNotifIntervalMinutes(minutes);
 
     if (_notifEnabled) {
-      await _notificationService.schedulePeriodicReminder(minutes);
+      await _workManagerService.schedulePeriodicReminder(minutes);
     }
     notifyListeners();
   }

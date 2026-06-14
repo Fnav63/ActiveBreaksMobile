@@ -36,7 +36,6 @@ class NotificationService {
   }
 
   void _onNotificationTap(NotificationResponse response) {
-    // Navegación futura al recibir tap en notificación
   }
 
   Future<bool> requestPermissions() async {
@@ -139,6 +138,25 @@ class NotificationService {
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
     );
   }
+  Future<void> showBreakReminderNotification() async {
+  const androidDetails = AndroidNotificationDetails(
+    'break_reminder',
+    'Recordatorio de Pausa',
+    channelDescription:
+        'Recordatorio periodico para realizar pausas activas',
+    importance: Importance.defaultImportance,
+    priority: Priority.defaultPriority,
+  );
+
+  const details = NotificationDetails(android: androidDetails);
+
+  await _plugin.show(
+    2,
+    'Hora de una pausa activa',
+    'Toma un descanso y realiza una pausa activa.',
+    details,
+  );
+}
 
   Future<void> cancelReminders() async {
     await _plugin.cancel(2);

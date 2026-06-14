@@ -27,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Configuracion'),
+        title: const Text('Ajustes'),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

@@ -8,7 +8,6 @@ import 'breaks_list_screen.dart';
 import 'profile_screen.dart';
 import 'history_screen.dart';
 import 'settings_screen.dart';
-import 'about_screen.dart';
 import 'beta_testing_screen.dart';
 
 class MainShell extends StatefulWidget {
@@ -27,7 +26,6 @@ class _MainShellState extends State<MainShell> {
     ProfileScreen(),
     HistoryScreen(),
     SettingsScreen(),
-    AboutScreen(),
     BetaTestingScreen(),
   ];
 
@@ -84,7 +82,7 @@ class _MainShellState extends State<MainShell> {
           NavigationDestination(
             icon: Icon(Icons.settings_outlined),
             selectedIcon: Icon(Icons.settings),
-            label: 'Más',
+            label: 'Ajustes',
           ),
         ],
       ),

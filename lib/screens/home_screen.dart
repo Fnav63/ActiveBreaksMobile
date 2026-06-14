@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../viewmodels/breaks_viewmodel.dart';
 import '../viewmodels/profile_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -46,6 +47,18 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 12),
               const _BenefitsList(),
+              const SizedBox(height: 28),
+              Center(
+                child: ElevatedButton.icon(
+                  onPressed: (){
+                    context.read<BreaksViewModel>().loadPreferencesAndFilter();
+                    Navigator.pushNamed(context, '/about');
+                  },
+                  icon: const Icon(Icons.info_outline, size: 18),
+                  label: const Text('Acerca de la app'),
+                ),
+              ),
+              const SizedBox(height: 8),
             ],
           ),
         ),
@@ -85,7 +98,7 @@ class _HeroCard extends StatelessWidget {
                 Text(
                   profile.hasProfile
                       ? 'Hola, ${profile.userName} 👋'
-                      : 'Bienvenido 👋',
+                      : 'Bienvenido/a 👋',
                   style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,

@@ -41,7 +41,7 @@ class ProfileViewModel extends ChangeNotifier {
     'Otro',
   ];
 
-  static const List<int> intervalOptions = [15, 30, 45, 60, 90, 120];
+  static const List<int> intervalOptions = [30, 60, 90, 120];
 
   Future<void> loadProfile() async {
     _isLoading = true;
@@ -87,7 +87,7 @@ class ProfileViewModel extends ChangeNotifier {
       if (!granted) return;
       await _workManagerService.schedulePeriodicReminder(_notifIntervalMinutes);
     } else {
-      await _workManagerService.cancelReminder();
+      await _workManagerService.cancelAllTasks();
     }
 
     _notifEnabled = enabled;

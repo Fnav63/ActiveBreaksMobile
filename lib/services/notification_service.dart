@@ -108,7 +108,7 @@ class NotificationService {
     );
   }
 
-  Future<void> schedulePeriodicReminder(int intervalMinutes) async {
+  /*Future<void> schedulePeriodicReminder(int intervalMinutes) async {
     await cancelReminders();
 
     const androidDetails = AndroidNotificationDetails(
@@ -137,7 +137,7 @@ class NotificationService {
       details,
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
     );
-  }
+  }*/
   Future<void> showBreakReminderNotification() async {
   const androidDetails = AndroidNotificationDetails(
     'break_reminder',
@@ -158,9 +158,9 @@ class NotificationService {
   );
 }
 
-  Future<void> cancelReminders() async {
+  /*Future<void> cancelReminders() async {
     await _plugin.cancel(2);
-  }
+  }*/
 
   Future<void> cancelAll() async {
     await _plugin.cancelAll();

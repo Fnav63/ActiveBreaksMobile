@@ -15,17 +15,27 @@ class WorkManagerService {
   Future<void> schedulePeriodicReminder(int intervalMinutes) async {
     await Workmanager().cancelByTag(remindBreakTask);
 
+    final NotificationService notificationService = NotificationService();
+    await notificationService.initialize();
+    await notificationService.showBreakReminderNotification();
+
     await Workmanager().registerPeriodicTask(
       remindBreakTask,
       remindBreakTask,
       frequency: Duration(minutes: intervalMinutes),
-      initialDelay: Duration(minutes: intervalMinutes),
       backoffPolicy: BackoffPolicy.exponential,
     );
   }
 
   Future<void> cancelReminder() async {
     await Workmanager().cancelByTag(remindBreakTask);
+  }
+  Future<void> cancelAllTasks() async {
+    await Workmanager().cancelAll();
+
+    final NotificationService notificationService = NotificationService();
+    await notificationService.initialize();
+    await notificationService.cancelAll();
   }
 }
 
